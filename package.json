@@ -1,0 +1,36 @@
+{
+  "name": "bookmyshow",
+  "version": "1.0.0",
+  "description": "Movie booking app",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test",
+    "apis": "npx babel-node --presets=@babel/preset-env -- app.js",
+    "start": "npm-run-all --parallel apis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamsouravjha/bookmyshow.git"
+  },
+  "keywords": [
+    "Bookmyshow"
+  ],
+  "author": "shivamsouravjha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamsouravjha/bookmyshow/issues"
+  },
+  "homepage": "https://github.com/shivamsouravjha/bookmyshow#readme",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.3.1",
+    "npm-run-all": "^4.1.5"
+  }
+}
