@@ -1,9 +1,8 @@
 import SlotSetterRoute from './slotSetterApi';
-// import GroupApiRouter from './groupApi';
+import BookingRoute from './bookingApi';
 // import SourceApiRouter from './source';
 
 export default  {
   SlotSetterRoute,
-  // GroupApiRouter,
-  // SourceApiRouter
+  BookingRoute,
 };

@@ -10,24 +10,24 @@ app.use(express.json());
 // // removing the CORS error
 app.use(cors())
 app.use('/api/movies', Routes.SlotSetterRoute); ///for user commands
-// app.use('/api/groups', Routes.GroupApiRouter);  ///for group commands
+app.use('/api/booking', Routes.BookingRoute);  ///for group commands
 // app.use('/api/source', Routes.SourceApiRouter);   ////for source commands
 
 
-// app.use((req, res, next) => {
-//     const error = new Error('Could not find this route.', 404);       ///Incase of not having a route
-//     throw error;
-// });
+app.use((req, res, next) => {
+    const error = new Error('Could not find this route.', 404);       ///Incase of not having a route
+    throw error;
+});
 
 
 
-// app.use((error, req, res, next) => {          //special 4 term function that lets know error to consider it as error
-//     if (res.headerSent) {
-//         return next(error);
-//     }
-//     res.status(error.code || 500)
-//     res.json({ message: error.message || 'An unknown error occurred!', success: error.success || false });
-// });
+app.use((error, req, res, next) => {          //special 4 term function that lets know error to consider it as error
+    if (res.headerSent) {
+        return next(error);
+    }
+    res.status(error.code || 500)
+    res.json({ message: error.message || 'An unknown error occurred!', success: error.success || false });
+});
 
 
 mongoose

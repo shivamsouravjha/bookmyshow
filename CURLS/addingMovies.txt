@@ -1,0 +1,7 @@
+curl --location 'localhost:5001/api/movies/slot/create' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"Sheela ki jawani",
+    "theatres":["6497f25b1ef99ae00c7b1bea","6497fbc85c7fa22f6182ed2f"],
+    "slots":["1-2","4-5"]
+}'

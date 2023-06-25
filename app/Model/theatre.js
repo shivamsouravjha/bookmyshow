@@ -3,9 +3,9 @@ import mongooseUniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 const TheatreSchema = new schema({
-    occupiedSeats: [{ type: String }],
+    occupiedSeats: [[{ type: Number }]],
     name: { type: String },
-    numberOfSeats: { type: String },
+    numberOfSeats: { type: Number },
 }, {
     versionKey: false
 });

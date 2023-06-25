@@ -1,0 +1,28 @@
+curl --location --request GET 'localhost:5001/api/booking/show/slots' \
+--header 'Content-Type: application/json' \
+--data '{
+    "movie":"64989a424a487cd2f8f473d0",
+    "slot":"1-8"
+}'
+
+
+Response
+{
+    "data": {
+        "message": "Group Joined",
+        "slots": [
+            {
+                "slot": "1-2",
+                "theatre": "6497edb49e67a2853e4fccf8"
+            },
+            {
+                "slot": "1-2",
+                "theatre": "6497edb49e67a2853e4fccf8"
+            },
+            {
+                "slot": "1-2",
+                "theatre": "6497edb49e67a2853e4fccf8"
+            }
+        ]
+    }
+}
