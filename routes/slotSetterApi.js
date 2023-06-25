@@ -3,19 +3,13 @@ import SlotController from '../app/Controller/slotSetterController';
 
 const SlotSetterApi = express.Router();
 
-
-// //Account Signup
-// SlotSetterApi.post('/slot/create', (request,response) => {
-//   console.log("sa")
-// });
-
-//Accout login
+//Slot Create
 SlotSetterApi.post('/slot/create', (request, response) => {
   const slotController = new SlotController(response);
   slotController.addSlot(request);
 });
 
-//Getting group detail of user
+//Theatre Add
 SlotSetterApi.post('/theatre/add', (request, response) => {
   const slotController = new SlotController(response);
   slotController.addTheatre(request);

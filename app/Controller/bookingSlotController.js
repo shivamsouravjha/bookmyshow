@@ -21,4 +21,17 @@ export default class SlotController extends Controller {
         }
     }
 
+    bookSlot(request) {                 //bookSlot
+        try {
+            const addUser = this.service.bookSlots(request.body);
+            addUser.then(res => {
+                this.sendResponse(res);
+            })
+                .catch(error => {
+                    this.handleException(error);
+                })
+        } catch (error) {
+            this.handleException(error)
+        }
+    }
 }
