@@ -1,0 +1,15 @@
+curl --location 'localhost:5001/api/movies/theatre/add' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"panwel",
+    "numberOfSeats":45
+}'
+
+
+Response:
+{
+    "data": {
+        "success": true,
+        "userId": "6497f25b1ef99ae00c7b1bea"
+    }
+}

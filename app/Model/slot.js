@@ -5,10 +5,10 @@ const schema = mongoose.Schema;
 const SlotSchema = new schema({
     theatre: {type :mongoose.Types.ObjectId,required:true,ref:'Theatre'},
     movie: {type :mongoose.Types.ObjectId,required:true,ref:'Show'},
-    Slots: [{ type: string }],
+    slots: [{ type: String }],
 }, {
     versionKey: false
 });
 
 SlotSchema.plugin(mongooseUniqueValidator);
-module.exports = mongoose.model('Theatre', SlotSchema);
+module.exports = mongoose.model('Slot', SlotSchema);
