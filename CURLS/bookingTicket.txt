@@ -1,0 +1,24 @@
+curl --location 'localhost:5001/api/booking/book/tickets' \
+--header 'Content-Type: application/json' \
+--data '{
+    "movie": "64994edb05e2f580b0df897b",
+    "theatre": "64994e7d99dfc7b222e5449b",
+    "movieslot": 0,
+    "seats":[3,
+            4,
+        ]
+}'
+{
+    "data": {
+        "message": "Booked Joined",
+        "ticket": {
+            "seatNumber": [
+                7
+            ],
+            "theatre": "panwel",
+            "movie": "Shayne's revenge",
+            "slot": "4-5",
+            "active": true
+        }
+    }
+}
