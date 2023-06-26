@@ -1,14 +1,14 @@
-curl --location --request GET 'localhost:5001/api/booking/show/tickets' \
+curl --location 'localhost:5001/api/booking/cancel/tickets' \
 --header 'Content-Type: application/json' \
 --data '{
-    "ticketId": "6499c19ed2cce48131439dfe"
+    "ticketid":"6499c350978d1c4512fc4ae5"
 }'
 
 Response:
 {
-    "message": "Ticket Details",
-    "ticket": {
-        "_id": "6499c19ed2cce48131439dfe",
+    "message": "Ticket Cancelled Successfully",
+    "seats": {
+        "_id": "6499c350978d1c4512fc4ae5",
         "seatNumber": [
             "1",
             "2",

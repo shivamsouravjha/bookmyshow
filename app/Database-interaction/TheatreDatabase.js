@@ -54,6 +54,6 @@ export default class AccountRepository {
         } catch (error) {
             return "error adding slots"
         }
-        return { "success": true, "message": "slot created successfully" };
+        return { "success": true, "message": "Movie added successfully" };
     }
 }
