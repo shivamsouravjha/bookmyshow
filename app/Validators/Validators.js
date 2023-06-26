@@ -1,32 +1,34 @@
 import Joi from '@hapi/joi';
 
 export default {
-    createSlot : Joi.object().keys({
+    createSlot: Joi.object().keys({
         name: Joi.string().required(),
         theatres: Joi.array().required(),
         slots: Joi.array().required(),
     }),
-    addTheatre : Joi.object().keys({
+    addTheatre: Joi.object().keys({
         name: Joi.string().required(),
         numberOfSeats: Joi.number().required()
     }),
-    groupCreate : Joi.object().keys({
-        groupName: Joi.string().required(),
-        description: Joi.string().required(),
-        genre: Joi.string().required(),
-        duration: Joi.string().required(),
-        amount: Joi.number().required(),
+    showSlot: Joi.object().keys({
+        movie: Joi.string().required(),
+        slot: Joi.string().required(),
     }),
-    groupJoin : Joi.object().keys({
-        amount: Joi.number(),
-        groupId: Joi.string().required(),
+    showAvailableTickets: Joi.object().keys({
+        movieslot: Joi.number(),
+        theatre: Joi.string().required(),
+        movie: Joi.string().required(),
     }),
-    createSource: Joi.object().keys({
-        name: Joi.string().required(),
-        price: Joi.number().required(),
-        unitsPurchase: Joi.number().required(),
-        details: Joi.string().required(),
-        targetPrice: Joi.number().required(),
-        duration: Joi.string().required()
-    }), 
+    bookTickets: Joi.object().keys({
+        movie: Joi.string().required(),
+        theatre: Joi.string().required(),
+        movieslot: Joi.number().required(),
+        seats: Joi.array().required(),
+    }),
+    cancelTickets: Joi.object().keys({
+        ticketid: Joi.string().required(),
+    }),
+    showTicket: Joi.object().keys({
+        ticketid: Joi.string().required(),
+    }),
 }

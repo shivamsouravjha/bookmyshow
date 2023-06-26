@@ -1,6 +1,7 @@
 import Controller from './Controller';
 import * as Exceptions from '../Exceptions/Exceptions'
 import BookingService from '../Service/bookingSlotService';
+import Validators from '../Validators/Validators';
 export default class SlotController extends Controller {
     constructor(response) {
         super(response);
@@ -9,8 +10,12 @@ export default class SlotController extends Controller {
 
     showSlot(request) {                 //showSlot
         try {
-            const addUser = this.service.showSlot(request.body);
-            addUser.then(res => {
+            let { value, error } = Validators.showSlot.validate(request.body);
+            if (error) {
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }
+            const showSlot = this.service.showSlot(value);
+            showSlot.then(res => {
                 this.sendResponse(res);
             })
                 .catch(error => {
@@ -23,8 +28,12 @@ export default class SlotController extends Controller {
 
     showAvailableTickets(request) {                 //bookSlot
         try {
-            const addUser = this.service.showAvailableTickets(request.body);
-            addUser.then(res => {
+            let { value, error } = Validators.showAvailableTickets.validate(request.body);
+            if (error) {
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }
+            const availableTickets = this.service.showAvailableTickets(value);
+            availableTickets.then(res => {
                 this.sendResponse(res);
             })
                 .catch(error => {
@@ -37,8 +46,12 @@ export default class SlotController extends Controller {
 
     bookTickets(request) {                 //bookSlot
         try {
-            const addUser = this.service.bookTickets(request.body);
-            addUser.then(res => {
+            let { value, error } = Validators.bookTickets.validate(request.body);
+            if (error) {
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }
+            const bookTickets = this.service.bookTickets(value);
+            bookTickets.then(res => {
                 this.sendResponse(res);
             })
                 .catch(error => {
@@ -51,8 +64,12 @@ export default class SlotController extends Controller {
 
     cancelTickets(request) {                 //cancelticket
         try {
-            const addUser = this.service.cancelTickets(request.body);
-            addUser.then(res => {
+            let { value, error } = Validators.bookTickets.validate(request.body);
+            if (error) {
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }
+            const cancelTickets = this.service.cancelTickets(value);
+            cancelTickets.then(res => {
                 this.sendResponse(res);
             })
                 .catch(error => {
@@ -65,8 +82,12 @@ export default class SlotController extends Controller {
 
     showTicket(request) {                 //showTicket
         try {
-            const addUser = this.service.showTicket(request.body);
-            addUser.then(res => {
+            let { value, error } = Validators.showTicket.validate(request.body);
+            if (error) {
+                throw (new Exceptions.ValidationException(error.details[0].message));
+            }
+            const showTicket = this.service.showTicket(value);
+            showTicket.then(res => {
                 this.sendResponse(res);
             })
                 .catch(error => {
