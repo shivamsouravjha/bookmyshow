@@ -4,7 +4,7 @@ import ShowSchema from "../Model/shows"
 export default class AccountRepository {
 
     async addTheatre(obj) {
-        const { name, numberOfSeats, numberOfSlots } = obj
+        const { name, numberOfSeats } = obj
         const theatreModel = new TheatreSchema({
             name,
             numberOfSeats,
@@ -13,10 +13,20 @@ export default class AccountRepository {
         try {
             theatreDetails = await theatreModel.save();
         } catch (error) {
-            return "error at adding"
+            return "error adding theatre at movie "
         }
-        return { "success": true, "userId": theatreDetails._id };
+        return { "success": true, "message": "Movie slots added in theatre" };
     }
+
+    async showTheatre() {
+        const theatreModel = await TheatreSchema.find()
+        let eligibleTheatres = []
+        for (let i = 0; i < theatreModel.length; i++) {
+            eligibleTheatres.push({ theatreId: theatreModel[i]._id, name: theatreModel[i].name })
+        }
+        return { "success": true, "theatres": eligibleTheatres };
+    }
+
     async addSlot(obj) {
         const { name, theatres, slots } = obj
         const showSchema = new ShowSchema({
@@ -42,8 +52,8 @@ export default class AccountRepository {
 
             slotDetails = await SlotSchema.insertMany(shows);
         } catch (error) {
-            return "error at adding"
+            return "error adding slots"
         }
-        return { "success": true, "slotDetails": slotDetails };
+        return { "success": true, "message": "slot created successfully" };
     }
 }

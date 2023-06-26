@@ -9,6 +9,13 @@ SlotSetterApi.post('/slot/create', (request, response) => {
   slotController.addSlot(request);
 });
 
+
+//Show theatres
+SlotSetterApi.get('/theatre/preview', (request, response) => {
+  const slotController = new SlotController(response);
+  slotController.showTheatres(request);
+});
+
 //Theatre Add
 SlotSetterApi.post('/theatre/add', (request, response) => {
   const slotController = new SlotController(response);

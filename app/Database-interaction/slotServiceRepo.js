@@ -38,7 +38,7 @@ export default class SourceRepository {
                 }
                 show.push(...eligibleShows)
             }
-            return { 'message': 'Group Joined', 'slots': show };
+            return { 'message': 'Slots are available', 'slots': show };
         } catch (error) {
             throw error
         }
@@ -62,7 +62,7 @@ export default class SourceRepository {
             })
             await ticket.save();
             return {
-                'message': 'Group Joined', 'ticket': {
+                'message': 'Tickets booked successfully', 'ticket': {
                     seatNumber: seats,
                     theatre: slots.theatre.name,
                     movie: slots.movie.name,
@@ -85,7 +85,7 @@ export default class SourceRepository {
                 if (!slot.occupiedSeats[movieslot].includes(i + 1))
                     seats.push(i + 1);
             }
-            return { 'message': 'Group Joined', 'seats': seats };
+            return { 'message': 'Available tickets', 'seats': seats };
         } catch (error) {
             throw error
         }
@@ -107,7 +107,7 @@ export default class SourceRepository {
             ticket.active = false;
             await slot.save();
             await ticket.save();
-            return { 'message': 'Group Joined', 'seats': ticket };
+            return { 'message': 'Ticket Cancelled Successfully', 'seats': ticket };
         } catch (error) {
             throw error
         }
@@ -117,7 +117,7 @@ export default class SourceRepository {
         const { ticketId } = obj
         try {
             const ticket = await TicketSchema.findOne({ _id :ticketId })
-            return { 'message': 'Group Joined', 'seats': ticket };
+            return { 'message': 'Ticket Details', 'ticket': ticket };
         } catch (error) {
             throw error
         }

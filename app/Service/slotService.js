@@ -8,8 +8,18 @@ export default class SlotService {
     //adding theatre
     async addTheatre(args) {
         try {
-            let accountInfo = await this.repository.addTheatre(args);
-            return accountInfo
+            let theatreInfo = await this.repository.addTheatre(args);
+            return theatreInfo
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    //showing theatre
+    async showTheatre() {
+        try {
+            let theatreInfo = await this.repository.showTheatre();
+            return theatreInfo
         } catch (error) {
             throw error;
         }
@@ -18,8 +28,8 @@ export default class SlotService {
      //adding slot
     async addSlot(args) {
         try {
-            let accountInfo = await this.repository.addSlot(args);
-            return accountInfo
+            let slotInfo = await this.repository.addSlot(args);
+            return slotInfo
         } catch (error) {
             throw error;
         }
