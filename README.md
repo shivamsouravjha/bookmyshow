@@ -13,7 +13,7 @@ This is a Movie Ticket Booking System that allows users to create theaters, add 
 - [View booked tickets and their details.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/showTicket.txt)
 - [Cancel booked tickets.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/cancelTicket.txt)
 
-## FLow:
+## Flow:
 
  ```
 create a theatre -> fetch theatre names to add movie in slots -> show movie at a theatre in a slot
@@ -35,6 +35,58 @@ password=`password of user`
 
 db= `name of database`
 
+## Database Design:
+
+* Theatre:
+```
+   {
+    numberOfSeats: number of seats in theatre ,
+    name:name of theatre,
+    id:Id of theatre
+   }
+```
+* Show Schema:
+```
+   {
+    theatres: array of theatres the movie will be shown ,
+    name:name of movie,
+    id:Id of theatre
+   }
+```
+* Slot Schema:
+```
+   {
+    theatre : Theatre ID of the show in  particular slot ,
+    movie:Moive ID of the show in  particular slot ,
+    id:Id of slot,
+    slots: slot in which movie will be shown,
+    occupiedSeats:  seats which are occupied in every slot,
+    numberOfSeats: numberOfSeats in slot
+   }
+```
+
+* Slot Schema:
+```
+   {
+    theatre : Theatre ID of the show in  particular slot ,
+    movie:Moive ID of the show in  particular slot ,
+    id:Id of slot,
+    slots: slot in which movie will be shown,
+    occupiedSeats:  seats which are occupied in every slot,
+    numberOfSeats: numberOfSeats in slot
+   }
+```
+
+* Ticket Schema:
+```
+  {
+    seatNumber: seat numbers of movie,
+    theatre: theatre id where movie will be shown,
+    movie: movie id,
+    slot: slot of movie,
+    active:  is ticket active or cancelled,
+  }
+```
 ## Prerequisites
 
 - Node.js (version v19.7.0)
