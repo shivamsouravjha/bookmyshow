@@ -13,7 +13,6 @@ export default class AccountRepository {
         try {
             theatreDetails = await theatreModel.save();
         } catch (error) {
-            console.log(error)
             return "error at adding"
         }
         return { "success": true, "userId": theatreDetails._id };
@@ -30,21 +29,19 @@ export default class AccountRepository {
             let shows = []
             for (let i = 0; i < theatres.length; i++) {
                 const occupiedSeats = Array.from({ length: slots.length }, () => []);
-                let theatre = await TheatreSchema.findOne({ _id:theatres[i] })
-console.log(theatre)
+                let theatre = await TheatreSchema.findOne({ _id: theatres[i] })
                 const slot = new SlotSchema({
                     theatre: theatres[i],
                     movie: showDetails._id,
                     slots,
                     occupiedSeats,
-                    numberOfSeats:theatre.numberOfSeats,
+                    numberOfSeats: theatre.numberOfSeats,
                 })
                 shows.push(slot);
             }
 
             slotDetails = await SlotSchema.insertMany(shows);
         } catch (error) {
-            console.log(error)
             return "error at adding"
         }
         return { "success": true, "slotDetails": slotDetails };

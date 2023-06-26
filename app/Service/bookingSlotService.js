@@ -15,9 +15,9 @@ export default class BookingService {
         }
     }
     //showing tickets
-    async showTickets(args) {
+    async showAvailableTickets(args) {
         try {
-            let accountInfo = await this.repository.showTickets(args);
+            let accountInfo = await this.repository.showAvailableTickets(args);
             return accountInfo
         } catch (error) {
             throw error;
@@ -28,6 +28,26 @@ export default class BookingService {
     async bookTickets(args) {
         try {
             let accountInfo = await this.repository.bookTickets(args);
+            return accountInfo
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    //booking slots
+    async cancelTickets(args) {
+        try {
+            let accountInfo = await this.repository.cancelTickets(args);
+            return accountInfo
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    //showing tickets
+    async showTicket(args) {
+        try {
+            let accountInfo = await this.repository.showTicket(args);
             return accountInfo
         } catch (error) {
             throw error;

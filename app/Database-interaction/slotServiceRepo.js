@@ -68,6 +68,7 @@ export default class SourceRepository {
                     movie: slots.movie.name,
                     slot: slots.slots[movieslot],
                     active: true,
+                    id: ticket._id,
                 }
             };
         } catch (error) {
@@ -75,7 +76,7 @@ export default class SourceRepository {
         }
     }
 
-    async showTickets(obj) {
+    async showAvailableTickets(obj) {
         const { movieslot, movie, theatre } = obj
         try {
             const slot = await SlotSchema.findOne({ movie: movie, theatre: theatre })
@@ -85,6 +86,38 @@ export default class SourceRepository {
                     seats.push(i + 1);
             }
             return { 'message': 'Group Joined', 'seats': seats };
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async cancelTickets(obj) {
+        const { ticketid } = obj
+        try {
+            const ticket = await TicketSchema.findOne({ _id: ticketid })
+            const slot = await SlotSchema.findOne({ theatre: ticket.theatre, movie: ticket.movie })
+            const slotNumber = slot.slots.indexOf(ticket.slot)
+            let occupiedSlot = [];
+            for (let i = 0; i < slot.occupiedSeats[slotNumber - 1].length; i++) {
+                if (!ticket.seatNumber.includes(slot.occupiedSeats[slotNumber - 1][i])) {
+                    occupiedSlot.push(slot.occupiedSeats[slotNumber - 1][i])
+                }
+            }
+            slot.occupiedSeats[slotNumber] = occupiedSlot;
+            ticket.active = false;
+            await slot.save();
+            await ticket.save();
+            return { 'message': 'Group Joined', 'seats': ticket };
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async showTicket(obj) {
+        const { ticketId } = obj
+        try {
+            const ticket = await TicketSchema.findOne({ _id :ticketId })
+            return { 'message': 'Group Joined', 'seats': ticket };
         } catch (error) {
             throw error
         }

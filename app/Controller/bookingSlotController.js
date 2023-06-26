@@ -21,9 +21,9 @@ export default class SlotController extends Controller {
         }
     }
 
-    showTickets(request) {                 //bookSlot
+    showAvailableTickets(request) {                 //bookSlot
         try {
-            const addUser = this.service.showTickets(request.body);
+            const addUser = this.service.showAvailableTickets(request.body);
             addUser.then(res => {
                 this.sendResponse(res);
             })
@@ -38,6 +38,34 @@ export default class SlotController extends Controller {
     bookTickets(request) {                 //bookSlot
         try {
             const addUser = this.service.bookTickets(request.body);
+            addUser.then(res => {
+                this.sendResponse(res);
+            })
+                .catch(error => {
+                    this.handleException(error);
+                })
+        } catch (error) {
+            this.handleException(error)
+        }
+    }
+
+    cancelTickets(request) {                 //cancelticket
+        try {
+            const addUser = this.service.cancelTickets(request.body);
+            addUser.then(res => {
+                this.sendResponse(res);
+            })
+                .catch(error => {
+                    this.handleException(error);
+                })
+        } catch (error) {
+            this.handleException(error)
+        }
+    }
+
+    showTicket(request) {                 //showTicket
+        try {
+            const addUser = this.service.showTicket(request.body);
             addUser.then(res => {
                 this.sendResponse(res);
             })

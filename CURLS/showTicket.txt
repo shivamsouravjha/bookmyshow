@@ -1,0 +1,22 @@
+curl --location --request GET 'localhost:5001/api/booking/show/tickets' \
+--header 'Content-Type: application/json' \
+--data '{
+    "ticketId": "6499826fc5816dc1c7d84286"
+}'
+
+
+Response {
+    "data": {
+        "message": "Group Joined",
+        "seats": {
+            "_id": "6499826fc5816dc1c7d84286",
+            "seatNumber": [
+                "8"
+            ],
+            "theatre": "649980592ee97914f61a1f62",
+            "movie": "649980602ee97914f61a1f65",
+            "slot": "4-5",
+            "active": false
+        }
+    }
+}
