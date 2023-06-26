@@ -44,6 +44,15 @@ db= `name of database`
     name:name of theatre,
     id:Id of theatre
    }
+
+Sample:
+{
+  "_id": { "$oid": "6497edb49e67a2853e4fccf8" },
+  "occupiedSeats": [[], [], []],
+  "name": "panwel",
+  "numberOfSeats": "45",
+  "numberOfSlots": { "$numberInt": "3" }
+}
 ```
 * Show Schema:
 ```
@@ -52,6 +61,13 @@ db= `name of database`
     name:name of movie,
     id:Id of theatre
    }
+Sample:
+{
+  "_id": { "$oid": "6499c818758dff3ace4445a9" },
+  "theatres": [{ "$oid": "6499c0adad8027ad38db6dda" }],
+  "name": "Suryavansham"
+}
+
 ```
 * Slot Schema:
 ```
@@ -63,20 +79,16 @@ db= `name of database`
     occupiedSeats:  seats which are occupied in every slot,
     numberOfSeats: numberOfSeats in slot
    }
-```
 
-* Slot Schema:
-```
-   {
-    theatre : Theatre ID of the show in  particular slot ,
-    movie:Moive ID of the show in  particular slot ,
-    id:Id of slot,
-    slots: slot in which movie will be shown,
-    occupiedSeats:  seats which are occupied in every slot,
-    numberOfSeats: numberOfSeats in slot
-   }
-```
+Sample:
+{
+  "_id": { "$oid": "6497fbb42567483b61586c09" },
+  "theatre": { "$oid": "6497f25b1ef99ae00c7b1bea" },
+  "movie": { "$oid": "6497fbb42567483b61586c06" },
+  "Slots": []
+}
 
+```
 * Ticket Schema:
 ```
   {
@@ -86,6 +98,15 @@ db= `name of database`
     slot: slot of movie,
     active:  is ticket active or cancelled,
   }
+Sample:
+{
+  "_id": { "$oid": "64996a7658f1ae1f0cfd37ed" },
+  "seatNumber": [],
+  "theatre": { "$oid": "64994e7d99dfc7b222e5449b" },
+  "movie": { "$oid": "64994edb05e2f580b0df897b" },
+  "slot": "4-5",
+  "active": true
+}
 ```
 ## Prerequisites
 
