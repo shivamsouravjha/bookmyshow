@@ -6,6 +6,8 @@ const SlotSchema = new schema({
     theatre: {type :mongoose.Types.ObjectId,required:true,ref:'Theatre'},
     movie: {type :mongoose.Types.ObjectId,required:true,ref:'Show'},
     slots: [{ type: String }],
+    occupiedSeats: [[{ type: Number }]],
+    numberOfSeats: { type: Number },
 }, {
     versionKey: false
 });

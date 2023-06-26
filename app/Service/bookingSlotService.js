@@ -14,10 +14,20 @@ export default class BookingService {
             throw error;
         }
     }
-    //booking slots
-    async bookSlots(args) {
+    //showing tickets
+    async showTickets(args) {
         try {
-            let accountInfo = await this.repository.bookSlots(args);
+            let accountInfo = await this.repository.showTickets(args);
+            return accountInfo
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    //booking slots
+    async bookTickets(args) {
+        try {
+            let accountInfo = await this.repository.bookTickets(args);
             return accountInfo
         } catch (error) {
             throw error;

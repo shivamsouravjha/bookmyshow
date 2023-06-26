@@ -5,13 +5,9 @@ export default class AccountRepository {
 
     async addTheatre(obj) {
         const { name, numberOfSeats, numberOfSlots } = obj
-        const occupiedSeats = Array.from({ length: numberOfSlots }, () => []);
-        console.log(occupiedSeats)
         const theatreModel = new TheatreSchema({
-            occupiedSeats: occupiedSeats,
             name,
             numberOfSeats,
-            numberOfSlots,
         })
         let theatreDetails;
         try {
@@ -33,19 +29,17 @@ export default class AccountRepository {
             showDetails = await showSchema.save();
             let shows = []
             for (let i = 0; i < theatres.length; i++) {
+                const occupiedSeats = Array.from({ length: slots.length }, () => []);
+                let theatre = await TheatreSchema.findOne({ _id:theatres[i] })
+console.log(theatre)
                 const slot = new SlotSchema({
                     theatre: theatres[i],
                     movie: showDetails._id,
                     slots,
+                    occupiedSeats,
+                    numberOfSeats:theatre.numberOfSeats,
                 })
                 shows.push(slot);
-                const occupiedSeats = Array.from({ length: slots.length }, () => []);
-
-                const filter = { _id: theatres[i] };
-                const update = { $set: { occupiedSeats: occupiedSeats, numberOfSlots: slots.length } };
-
-                const result = await TheatreSchema.updateOne(filter, update);
-                console.log(result)
             }
 
             slotDetails = await SlotSchema.insertMany(shows);

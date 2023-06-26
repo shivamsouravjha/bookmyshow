@@ -10,10 +10,16 @@ BookControllerApi.get('/show/slots', (request, response) => {
   bookController.showSlot(request);
 });
 
-//book slot
-BookControllerApi.post('/book/slots', (request, response) => {
+//show slot
+BookControllerApi.post('/show/tickets', (request, response) => {
   const bookController = new BookController(response);
-  bookController.bookSlot(request);
+  bookController.showTickets(request);
+});
+
+//book slot
+BookControllerApi.post('/book/tickets', (request, response) => {
+  const bookController = new BookController(response);
+  bookController.bookTickets(request);
 });
 
 export default BookControllerApi;
