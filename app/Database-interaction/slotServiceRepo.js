@@ -50,6 +50,9 @@ export default class SourceRepository {
                     show.push({ name: movieData[mov].name, shows: eligibleShows })
                 }
             }
+            if(show.length == 0){
+                throw new Error("No slots available, try searching for anohter movie maybe?")
+            }
             return { 'message': 'Slots are available', 'slots': show };
         } catch (error) {
             throw error
@@ -96,6 +99,9 @@ export default class SourceRepository {
             for (var i = 0; i < slot.numberOfSeats; i++) {
                 if (!slot.occupiedSeats[movieslot].includes(i + 1))
                     seats.push(i + 1);
+            }
+            if(seats.length<1){
+                throw new Error("No availavble tickets")
             }
             return { 'message': 'Available tickets', 'seats': seats };
         } catch (error) {

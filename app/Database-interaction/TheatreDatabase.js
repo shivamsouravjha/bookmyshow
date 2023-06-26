@@ -24,6 +24,9 @@ export default class AccountRepository {
         for (let i = 0; i < theatreModel.length; i++) {
             eligibleTheatres.push({ theatreId: theatreModel[i]._id, name: theatreModel[i].name })
         }
+        if(eligibleTheatres.length==0){
+            throw new Error("No theatres found")
+        }
         return { "success": true, "theatres": eligibleTheatres };
     }
 
@@ -52,7 +55,7 @@ export default class AccountRepository {
 
             slotDetails = await SlotSchema.insertMany(shows);
         } catch (error) {
-            return "error adding slots"
+            throw new Error("error adding movie slots")
         }
         return { "success": true, "message": "Movie added successfully" };
     }
