@@ -1,4 +1,5 @@
 import SlotSchema from "../Model/slot";
+import ShowSchema from "../Model/shows";
 import TicketSchema from "../Model/ticket"
 function arrayDifference(array1, array2, numberOfSeats) {
     var differentArray = false
@@ -14,29 +15,40 @@ export default class SourceRepository {
     async findSlot(obj) {
         const { slot, movie } = obj
         try {
-            const slots = await SlotSchema.find({ movie: movie })
+            let movieData = await ShowSchema.find({
+                name: {
+                    $type: 'string',
+                    $regex: new RegExp(movie, 'i'),
+                },
+            })
             let show = [];
-            for (let i = 0; i < slots.length; i++) {
-                let eligibleShows = []
-                if (slots[i].slots.includes(slot)) {
-                    if (slots[i].occupiedSeats[slots[i].slots.indexOf(slot)].length >= slots[i].numberOfSeats) {
+
+            for (let mov = 0; mov < movieData.length; mov++) {
+                const slots = await SlotSchema.find({
+                    movie: movieData[mov]._id
+                }).populate('theatre');
+                for (let i = 0; i < slots.length; i++) {
+                    let eligibleShows = []
+                    if (slots[i].slots.includes(slot)) {
+                        if (slots[i].occupiedSeats[slots[i].slots.indexOf(slot)].length >= slots[i].numberOfSeats) {
+                            slots[i].occupiedSeats.forEach((element, item) => {
+                                if (element.length < slots[i].numberOfSeats) {
+                                    eligibleShows.push({ slotText: slots[i].slots[item], slot: item, theatre: slots[i].theatre._id, theatreName: slots[i].theatre.name, movieId: movieData[mov]._id })
+                                }
+                            });
+                        } else {
+                            eligibleShows.push({ slotText: slots[i].slots[slots[i].slots.indexOf(slot)], slot: slots[i].slots.indexOf(slot), theatre: slots[i].theatre._id, theatreName: slots[i].theatre.name, movieId: movieData[mov]._id })
+                        }
+                    } else {
                         slots[i].occupiedSeats.forEach((element, item) => {
                             if (element.length < slots[i].numberOfSeats) {
-                                eligibleShows.push({ slotText: slots[i].slots[item], slot: item, theatre: slots[i].theatre })
+                                eligibleShows.push({ slotText: slots[i].slots[item], slot: item, theatre: slots[i].theatre._id, theatreName: slots[i].theatre.name, movieId: movieData[mov]._id })
                             }
                         });
-                    } else {
-                        eligibleShows.push({ slotText: slots[i].slots[slots[i].slots.indexOf(slot)], slot: slots[i].slots.indexOf(slot), theatre: slots[i].theatre, })
-                    }
-                } else {
-                    slots[i].occupiedSeats.forEach((element, item) => {
-                        if (element.length < slots[i].numberOfSeats) {
-                            eligibleShows.push({ slotText: slots[i].slots[item], slot: item, theatre: slots[i].theatre })
-                        }
-                    });
 
+                    }
+                    show.push({ name: movieData[mov].name, shows: eligibleShows })
                 }
-                show.push(...eligibleShows)
             }
             return { 'message': 'Slots are available', 'slots': show };
         } catch (error) {
@@ -98,9 +110,9 @@ export default class SourceRepository {
             const slot = await SlotSchema.findOne({ theatre: ticket.theatre, movie: ticket.movie })
             const slotNumber = slot.slots.indexOf(ticket.slot)
             let occupiedSlot = [];
-            for (let i = 0; i < slot.occupiedSeats[slotNumber - 1].length; i++) {
-                if (!ticket.seatNumber.includes(slot.occupiedSeats[slotNumber - 1][i])) {
-                    occupiedSlot.push(slot.occupiedSeats[slotNumber - 1][i])
+            for (let i = 0; i < slot.occupiedSeats[slotNumber].length; i++) {
+                if (!ticket.seatNumber.includes(slot.occupiedSeats[slotNumber][i])) {
+                    occupiedSlot.push(slot.occupiedSeats[slotNumber][i])
                 }
             }
             slot.occupiedSeats[slotNumber] = occupiedSlot;
@@ -116,7 +128,7 @@ export default class SourceRepository {
     async showTicket(obj) {
         const { ticketId } = obj
         try {
-            const ticket = await TicketSchema.findOne({ _id :ticketId })
+            const ticket = await TicketSchema.findOne({ _id: ticketId })
             return { 'message': 'Ticket Details', 'ticket': ticket };
         } catch (error) {
             throw error

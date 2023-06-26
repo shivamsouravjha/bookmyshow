@@ -10,8 +10,7 @@ export default class SlotController extends Controller {
 
     addSlot(request) {                 //createSlot
         try {
-            let { value, error } = Validators.addTheatre.validate(request.body);
-            console.log(value)
+            let { value, error } = Validators.createSlot.validate(request.body);
             if (error) {
                 throw (new Exceptions.ValidationException(error.details[0].message));
             }
