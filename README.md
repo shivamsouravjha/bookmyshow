@@ -4,14 +4,14 @@ This is a Movie Ticket Booking System that allows users to create theaters, add 
 
 ## Features
 
-- Create a theater with a name and seating capacity.
-- Add movies to theaters with movie name and available showtimes.
-- View all theaters to add showtimes and manage slots.
-- Show all available slots for each theater and movie.
-- View available tickets for a specific slot.
-- Book tickets for a desired slot.
-- View booked tickets and their details.
-- Cancel booked tickets.
+- [Create a theater with a name and seating capacity](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/addTheatres.txt).
+- [Preview all theatres to add movie slots](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/viewTheatres.txt)
+- [Add movies to theaters with movie name and available showtimes at theatre fetched from above](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/addingMovies.txt).
+- [View all theaters that show a certain movie(searched with name).](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/showSlot.txt)
+- [Show all available tickets at any theatre for any movie at any certain slot.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/showAvailableTickets.txt)
+- [Book tickets for a desired slot.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/bookingTicket.txt)
+- [View booked tickets and their details.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/showTicket.txt)
+- [Cancel booked tickets.](https://github.com/shivamsouravjha/bookmyshow/blob/main/CURLS/cancelTicket.txt)
 
 ## Prerequisites
 
