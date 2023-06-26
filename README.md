@@ -29,9 +29,11 @@ create a theatre -> fetch theatre names to add movie in slots -> show movie at a
 
 ## Environment variables needed to run it
 
-name=<name of user>
-password=<password of user>
-db=<name of database>
+name=`name of user`
+
+password=`password of user`
+
+db= `name of database`
 
 ## Prerequisites
 
