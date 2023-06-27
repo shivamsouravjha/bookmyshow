@@ -34,10 +34,24 @@ export default class BookingService {
         }
     }
 
-    //booking slots
+    //cancelling slots
     async cancelTickets(args) {
         try {
-            let accountInfo = await this.repository.cancelTickets(args);
+            let ticket = await this.repository.findTicket(args);
+            if(!ticket.active){
+                throw new Error("Already cancelled ticket")
+            }
+            let slot = await this.repository.findSlotForMovie(ticket);
+            const slotNumber = slot.slots.indexOf(ticket.slot)
+            let occupiedSlot = [];
+            for (let i = 0; i < slot.occupiedSeats[slotNumber].length; i++) {
+                if (!ticket.seatNumber.includes(slot.occupiedSeats[slotNumber][i])) {
+                    occupiedSlot.push(slot.occupiedSeats[slotNumber][i])
+                }
+            }
+            slot.occupiedSeats[slotNumber] = occupiedSlot;
+            ticket.active = false;
+            let accountInfo = await this.repository.cancelTickets({slot,ticket});
             return accountInfo
         } catch (error) {
             throw error;

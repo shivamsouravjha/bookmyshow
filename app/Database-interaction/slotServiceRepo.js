@@ -50,7 +50,7 @@ export default class SourceRepository {
                     show.push({ name: movieData[mov].name, shows: eligibleShows })
                 }
             }
-            if(show.length == 0){
+            if (show.length == 0) {
                 throw new Error("No slots available, try searching for anohter movie maybe?")
             }
             return { 'message': 'Slots are available', 'slots': show };
@@ -100,7 +100,7 @@ export default class SourceRepository {
                 if (!slot.occupiedSeats[movieslot].includes(i + 1))
                     seats.push(i + 1);
             }
-            if(seats.length<1){
+            if (seats.length < 1) {
                 throw new Error("No availavble tickets")
             }
             return { 'message': 'Available tickets', 'seats': seats };
@@ -109,22 +109,26 @@ export default class SourceRepository {
         }
     }
 
+    async findTicket(obj) {
+        const { ticketid } = obj;
+        const ticket = await TicketSchema.findOne({ _id: ticketid })
+        return ticket
+    }
+
+    async findSlotForMovie(obj) {
+        const { ticket } = obj;
+        const slot = await SlotSchema.findOne({ theatre: ticket.theatre, movie: ticket.movie })
+        return slot
+    }
+
     async cancelTickets(obj) {
-        const { ticketid } = obj
+        const { slot, ticket } = obj
         try {
-            const ticket = await TicketSchema.findOne({ _id: ticketid })
-            const slot = await SlotSchema.findOne({ theatre: ticket.theatre, movie: ticket.movie })
-            const slotNumber = slot.slots.indexOf(ticket.slot)
-            let occupiedSlot = [];
-            for (let i = 0; i < slot.occupiedSeats[slotNumber].length; i++) {
-                if (!ticket.seatNumber.includes(slot.occupiedSeats[slotNumber][i])) {
-                    occupiedSlot.push(slot.occupiedSeats[slotNumber][i])
-                }
-            }
-            slot.occupiedSeats[slotNumber] = occupiedSlot;
-            ticket.active = false;
+            const sess = await mongoose.startSession();
+            sess.startTransaction();
             await slot.updateOne();
             await ticket.updateOne();
+            await sess.commitTransaction();
             return { 'message': 'Ticket Cancelled Successfully', 'seats': ticket };
         } catch (error) {
             throw error
