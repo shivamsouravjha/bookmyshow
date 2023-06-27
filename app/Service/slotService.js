@@ -1,7 +1,5 @@
-import AccountRepository from '../Database-interaction/TheatreDatabase.js';
+import AccountRepository from '../Database-interaction/theatreServiceRepo.js';
 import SlotSchema from "../Model/slot"
-
-import * as Exceptions from '../Exceptions/Exceptions';
 export default class SlotService {
     constructor() {
         this.repository = new AccountRepository();
