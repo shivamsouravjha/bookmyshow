@@ -26,9 +26,9 @@ export default {
         seats: Joi.array().required(),
     }),
     cancelTickets: Joi.object().keys({
-        ticketid: Joi.string().required(),
+        ticketId: Joi.string().required(),
     }),
     showTicket: Joi.object().keys({
-        ticketid: Joi.string().required(),
+        ticketId: Joi.string().required(),
     }),
 }

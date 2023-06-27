@@ -1,16 +1,7 @@
 import SlotSchema from "../Model/slot";
 import ShowSchema from "../Model/shows";
 import TicketSchema from "../Model/ticket"
-function arrayDifference(array1, array2, numberOfSeats) {
-    var differentArray = false
-    array2.forEach((element) => {
-        if (array1.includes(element) || element > numberOfSeats) {
-            differentArray = true;
-        }
-    });
-    return differentArray
-}
-
+import mongoose from "mongoose";
 export default class SourceRepository {
     async findMovie(movie) {
         let movieData = await ShowSchema.find({
@@ -47,7 +38,7 @@ export default class SourceRepository {
     }
 
     async udpateSlot(slots) {
-        return await slots.updateOne();
+        return await slots.save();
     }
 
     async showAvailableTickets(obj) {
@@ -61,13 +52,12 @@ export default class SourceRepository {
     }
 
     async findTicket(obj) {
-        const { ticketid } = obj;
-        const ticket = await TicketSchema.findOne({ _id: ticketid })
+        const { ticketId } = obj;
+        const ticket = await TicketSchema.findOne({ _id: ticketId })
         return ticket
     }
 
-    async findSlotForMovie(obj) {
-        const { ticket } = obj;
+    async findSlotForMovie(ticket) {
         const slot = await SlotSchema.findOne({ theatre: ticket.theatre, movie: ticket.movie })
         return slot
     }
@@ -78,7 +68,7 @@ export default class SourceRepository {
             const sess = await mongoose.startSession();
             sess.startTransaction();
             await this.udpateSlot(slot);
-            await ticket.updateOne();
+            await ticket.save();
             await sess.commitTransaction();
             return { 'message': 'Ticket Cancelled Successfully', 'seats': ticket };
         } catch (error) {

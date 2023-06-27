@@ -1,5 +1,15 @@
 import AccountRepository from '../Database-interaction/slotServiceRepo';
 import * as Exceptions from '../Exceptions/Exceptions';
+
+function arrayDifference(array1, array2, numberOfSeats) {
+    var differentArray = false
+    array2.forEach((element) => {
+        if (array1.includes(element) || element > numberOfSeats) {
+            differentArray = true;
+        }
+    });
+    return differentArray
+}
 export default class BookingService {
     constructor() {
         this.repository = new AccountRepository();
@@ -67,7 +77,7 @@ export default class BookingService {
     //booking slots
     async bookTickets(args) {
         try {
-            const { movieslot, seats, movie, theatre } = obj;
+            const { movieslot, seats, movie, theatre } = args;
             const slots = await this.repository.searchSlot({ movie, theatre })
             let bookedSeats = arrayDifference(slots.occupiedSeats[movieslot], seats, slots.numberOfSeats)
             if (bookedSeats) {
@@ -95,6 +105,9 @@ export default class BookingService {
     async cancelTickets(args) {
         try {
             let ticket = await this.repository.findTicket(args);
+            if (ticket == undefined) {
+                throw new Error("No such ticket")
+            }
             if (!ticket.active) {
                 throw new Error("Already cancelled ticket")
             }
