@@ -64,7 +64,7 @@ export default class SlotController extends Controller {
 
     cancelTickets(request) {                 //cancelticket
         try {
-            let { value, error } = Validators.bookTickets.validate(request.body);
+            let { value, error } = Validators.cancelTickets.validate(request.body);
             if (error) {
                 throw (new Exceptions.ValidationException(error.details[0].message));
             }
