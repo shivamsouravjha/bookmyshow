@@ -46,8 +46,9 @@ export default class AccountRepository {
     async addSlot(obj) {
         const { shows } = obj
         try {
-            slotDetails = await SlotSchema.insertMany(shows);
+            await SlotSchema.insertMany( shows );
         } catch (error) {
+            console.log(error)
             throw new Error("error adding movie slots")
         }
         return { "success": true, "message": "Movie added successfully" };

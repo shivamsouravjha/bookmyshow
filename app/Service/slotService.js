@@ -1,4 +1,6 @@
 import AccountRepository from '../Database-interaction/TheatreDatabase.js';
+import SlotSchema from "../Model/slot"
+
 import * as Exceptions from '../Exceptions/Exceptions';
 export default class SlotService {
     constructor() {
@@ -50,7 +52,7 @@ export default class SlotService {
                 })
                 shows.push(slot);
             }
-            let slotInfo = await this.repository.addSlot(shows);
+            let slotInfo = await this.repository.addSlot({shows});
             return slotInfo
         } catch (error) {
             throw error;

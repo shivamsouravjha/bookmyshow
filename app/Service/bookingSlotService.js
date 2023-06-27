@@ -8,8 +8,9 @@ export default class BookingService {
     //showing slots
     async showSlot(args) {
         try {
-            const { slot, movie } = obj
+            const { slot, movie } = args
             let movieData = await this.repository.findMovie(movie);
+            let show = [];
             for (let mov = 0; mov < movieData.length; mov++) {
                 const slots = await this.repository.findSlotByTheatre(movieData[mov]._id)
                 for (let i = 0; i < slots.length; i++) {
