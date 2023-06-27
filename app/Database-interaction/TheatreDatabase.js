@@ -19,33 +19,33 @@ export default class AccountRepository {
     }
 
     async showTheatre() {
-        const theatreModel = await TheatreSchema.find().limit(10)
+        const theatreModel = await TheatreSchema.find().limit(100)
         return theatreModel
     }
 
-    async addSlot(obj) {
-        const { name, theatres, slots } = obj
+    async createShow(obj) {
+        const { name, theatres } = obj
         const showSchema = new ShowSchema({
             theatres,
             name,
         })
-        let showDetails, slotDetails;
         try {
-            showDetails = await showSchema.save();
-            let shows = []
-            for (let i = 0; i < theatres.length; i++) {
-                const occupiedSeats = Array.from({ length: slots.length }, () => []);
-                let theatre = await TheatreSchema.findOne({ _id: theatres[i] })
-                const slot = new SlotSchema({
-                    theatre: theatres[i],
-                    movie: showDetails._id,
-                    slots,
-                    occupiedSeats,
-                    numberOfSeats: theatre.numberOfSeats,
-                })
-                shows.push(slot);
-            }
+            let showDetails = showDetails = await showSchema.save();
+            return showDetails
+        } catch (error) {
+            throw new Error("error adding movie slots")
+        }
+    }
 
+    async findTheatre(obj) {
+        const { theatreId } = obj
+        let theatre = await TheatreSchema.findOne({ _id: theatreId })
+        return theatre
+    }
+
+    async addSlot(obj) {
+        const { shows } = obj
+        try {
             slotDetails = await SlotSchema.insertMany(shows);
         } catch (error) {
             throw new Error("error adding movie slots")

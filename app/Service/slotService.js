@@ -35,7 +35,22 @@ export default class SlotService {
     //adding slot
     async addSlot(args) {
         try {
-            let slotInfo = await this.repository.addSlot(args);
+            const { name, theatres, slots } = args
+            let showDetails = await this.repository.createShow({ name, theatres })
+            let shows = []
+            for (let i = 0; i < theatres.length; i++) {
+                const occupiedSeats = Array.from({ length: slots.length }, () => []);
+                let theatre = await this.repository.findTheatre({ theatreId: theatres[i] })
+                const slot = new SlotSchema({
+                    theatre: theatres[i],
+                    movie: showDetails._id,
+                    slots,
+                    occupiedSeats,
+                    numberOfSeats: theatre.numberOfSeats,
+                })
+                shows.push(slot);
+            }
+            let slotInfo = await this.repository.addSlot(shows);
             return slotInfo
         } catch (error) {
             throw error;
