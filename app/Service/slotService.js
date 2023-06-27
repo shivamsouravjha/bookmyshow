@@ -19,13 +19,20 @@ export default class SlotService {
     async showTheatre() {
         try {
             let theatreInfo = await this.repository.showTheatre();
-            return theatreInfo
+            let eligibleTheatres = []
+            for (let i = 0; i < theatreInfo.length; i++) {
+                eligibleTheatres.push({ theatreId: theatreInfo[i]._id, name: theatreInfo[i].name })
+            }
+            if (eligibleTheatres.length == 0) {
+                throw new Error("No theatres found")
+            }
+            return { "success": true, "theatres": eligibleTheatres };
         } catch (error) {
             throw error;
         }
     }
 
-     //adding slot
+    //adding slot
     async addSlot(args) {
         try {
             let slotInfo = await this.repository.addSlot(args);

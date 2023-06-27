@@ -19,15 +19,8 @@ export default class AccountRepository {
     }
 
     async showTheatre() {
-        const theatreModel = await TheatreSchema.find()
-        let eligibleTheatres = []
-        for (let i = 0; i < theatreModel.length; i++) {
-            eligibleTheatres.push({ theatreId: theatreModel[i]._id, name: theatreModel[i].name })
-        }
-        if(eligibleTheatres.length==0){
-            throw new Error("No theatres found")
-        }
-        return { "success": true, "theatres": eligibleTheatres };
+        const theatreModel = await TheatreSchema.find().limit(10)
+        return theatreModel
     }
 
     async addSlot(obj) {
