@@ -67,7 +67,7 @@ export default class SourceRepository {
                 throw new Error('Seat already booked.');
             }
             slots.occupiedSeats[movieslot].push(...seats)
-            await slots.save()
+            await slots.updateOne()
             let ticket = new TicketSchema({
                 seatNumber: seats,
                 theatre: theatre,
@@ -123,8 +123,8 @@ export default class SourceRepository {
             }
             slot.occupiedSeats[slotNumber] = occupiedSlot;
             ticket.active = false;
-            await slot.save();
-            await ticket.save();
+            await slot.updateOne();
+            await ticket.updateOne();
             return { 'message': 'Ticket Cancelled Successfully', 'seats': ticket };
         } catch (error) {
             throw error
