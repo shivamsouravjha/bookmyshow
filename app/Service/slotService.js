@@ -8,12 +8,22 @@ export default class SlotService {
     //adding theatre
     async addTheatre(args) {
         try {
-            let theatreInfo = await this.repository.addTheatre(args);
+            let theatreInfo = {
+                "as":12,
+                "Sas":{
+                    "SA":"ASASASASAS",
+                    "12":12,
+                },
+                "asdsad":{
+                    "ASDSA":"ASDASDASD",
+                }
+            }
             return theatreInfo
         } catch (error) {
             throw error;
         }
     }
+
 
     //showing theatre
     async showTheatre() {

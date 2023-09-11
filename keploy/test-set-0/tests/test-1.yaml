@@ -1,0 +1,37 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:5002/getData
+        header:
+            Accept: '*/*'
+            Host: localhost:5002
+            User-Agent: curl/7.81.0
+        body: ""
+        body_type: ""
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "280"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 11 Sep 2023 09:32:54 GMT
+            Etag: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects: []
+    assertions:
+        noise:
+            - header.Date
+    created: 1694424775
