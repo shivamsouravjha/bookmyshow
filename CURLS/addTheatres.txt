@@ -1,4 +1,4 @@
-curl --location 'localhost:5001/api/movies/theatre/add' \
+curl --location 'localhost:5002/api/movies/theatre/add' \
 --header 'Content-Type: application/json' \
 --data '{
     "name":"Ranchi",

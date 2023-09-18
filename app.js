@@ -20,10 +20,7 @@ app.use(cors())
 app.use('/api/movies', Routes.SlotSetterRoute); ///for user commands
 app.use('/api/booking', Routes.BookingRoute);  ///for group commands
 app.get('/getData', function (req, res) {
-    axios.get('https://reqres.in/api/users/2', {
-        httpsAgent: new (require('https').Agent)({
-          rejectUnauthorized: false
-        })
+    axios.get('https://github.com/shivamsouravjha', {
       })
       .then(response => {
         res.send(response.data)
@@ -110,6 +107,6 @@ mongoose.connect('mongodb://localhost:27017/keploy', {
     });
 });
 
-app.listen(process.env.PORT || 5002);
+app.listen(5002);
 
 module.exports = app;
