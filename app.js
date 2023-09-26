@@ -20,8 +20,8 @@ app.use(cors())
 app.use('/api/movies', Routes.SlotSetterRoute); ///for user commands
 app.use('/api/booking', Routes.BookingRoute);  ///for group commands
 app.get('/getData', function (req, res) {
-    axios.get('https://github.com/shivamsouravjha', {
-      })
+    console.log(process.env.NODE_EXTRA_CA_CERTS,"NODE_EXTRA_CA_CERTS")
+    axios.get('https://reqres.in/api/users/2')
       .then(response => {
         res.send(response.data)
         console.log(response.data);
@@ -34,13 +34,9 @@ app.get('/getData', function (req, res) {
 
 app.get('/createData', async function (req, res) {
     try {
-      const response = await axios.get('https://reqres.in/api/users/2', {
-        httpsAgent: new (require('https').Agent)({
-          rejectUnauthorized: false
-        })
-      });
+      await axios.get('https://reqres.in/api/users/2');
   
-      const data = response.data.data;
+      // const data = response.data.data;
   
       let query = 'CREATE TABLE IF NOT EXISTS your_table_name (first_name VARCHAR(50), last_name VARCHAR(50) )';
   
@@ -52,7 +48,7 @@ app.get('/createData', async function (req, res) {
       }
   
     query = 'INSERT INTO your_table_name(first_name, last_name) VALUES($1, $2)';
-      const values = [data.first_name, data.last_name];
+      const values = ["data.first_name"," data.last_name"];
   
       try {
         await pool.query(query, values);
@@ -106,6 +102,30 @@ mongoose.connect('mongodb://localhost:27017/keploy', {
         process.exit(0);
     });
 });
+// mongoose.connect('mongodb://localhost:27017/keploy', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   serverSelectionTimeoutMS: 5000,
+// })
+// .then(() => {
+//   console.log('MongoDB Connected');
+// })
+// .catch(err => {
+//     console.log(err);
+//     mongoose.connection.close(() => {
+//         console.log('Mongoose connection disconnected due to application termination');
+//         process.exit(0);
+//     });
+// });
+
+// await mongoose.disconnect();
+
+// app.listen(5002, (err) => {
+//   if (err) {
+//     return console.error(err);
+//   }
+//   console.log('Server started on port 5002');
+// });
 
 app.listen(5002);
 

@@ -7,7 +7,7 @@ spec:
         method: GET
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:5002/createData
+        url: http://localhost:5002/CreateData
         header:
             Accept: '*/*'
             Host: localhost:5002
@@ -21,7 +21,7 @@ spec:
             Connection: keep-alive
             Content-Length: "12"
             Content-Type: text/html; charset=utf-8
-            Date: Mon, 11 Sep 2023 09:33:02 GMT
+            Date: Tue, 26 Sep 2023 06:13:14 GMT
             Etag: W/"c-QTqGtwwk+nnv2ZusVi0ZWe3AGwo"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -34,4 +34,4 @@ spec:
     assertions:
         noise:
             - header.Date
-    created: 1694424782
+    created: 1695708799

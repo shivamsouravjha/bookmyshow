@@ -8,13 +8,26 @@ const {
     setTestRunCompletionStatus,
     cleanupProcesses,
 } = require('../typescript-sdk/keployV2/keployCli');
-const app = require('./app'); // Adjust the path to point to your app.js file
+import mongoose from 'mongoose';
+const fs = require('fs');
 
+const app = require('./app'); // Adjust the path to point to your app.js file
+let server;
 const { expect } = require('@jest/globals');
 
 describe('Keploy Server Tests', () => {
     let pid;
     beforeAll(async () => {
+        const caCertPath = "./ca.crt"
+        process.env.NODE_EXTRA_CA_CERTS = './ca.crt';
+        console.log(process.env.NODE_EXTRA_CA_CERTS,"NODE_EXTRA_CA_CERTS NODE_EXTRA_CA_CERTS")
+        try {
+            fs.accessSync(caCertPath, fs.constants.R_OK);
+            console.log('CA certificate file is readable');
+        } catch (err) {
+            console.error('Error accessing CA certificate file:', err);
+        }
+        // fs.accessSync(caCertPath, 'utf-8');
         setTestRunCompletionStatus(false)
         console.debug("Running keploy tests along with unit tests");
         pid = process.pid;
@@ -22,7 +35,7 @@ describe('Keploy Server Tests', () => {
 
         try {
             console.log("Starting keploy server");
-            RunKeployServer(pid, 7, "/home/shivamsouravjha.linux/bookmyshow", 0);
+            RunKeployServer(pid, 10, "/home/shivamsouravjha.linux/bookmyshow", 0);
             // wait for the keploy to load hooks
             await new Promise(resolve => setTimeout(resolve, 20000));
         } catch (error) {
@@ -33,21 +46,16 @@ describe('Keploy Server Tests', () => {
 
     afterAll(async () => {
         setTestRunCompletionStatus(true)
+        await mongoose.disconnect();
         console.log("Stopping keploy server");
         try {
             await StopKeployServer();
-            // await new Promise(res => setTimeout(res, 10000));
             console.log("Keploy server stopped.");
         } catch (error) {
             console.error("Error stopping Keploy server:", error);
             throw error; // propagate the error so that Jest can recognize it
         }
         cleanupProcesses();
-        // childProcesses.forEach((childProcess) => {
-        //     if (childProcess && !childProcess.killed) {
-        //       childProcess.kill('SIGTERM');
-        //     }
-        //   });
     }, 7000000);
 
     test('TestKeploy', async () => {
@@ -66,18 +74,17 @@ describe('Keploy Server Tests', () => {
 
             console.log("starting user application");
 
-            try {
-                console.log("now starting");
-                app.listen(process.env.PORT || 5002, () => {
-                    console.log('User application started on port', process.env.PORT || 5002);
-                });
-            } catch (error) {
-                console.log("got error while starting user application");
-                throw new Error(`User Application Error: ${error.message}`);
-            }
-
             let result = true;
             for (let testset of testSets) {
+                try {
+                    console.log("now starting");
+                    server = app.listen(process.env.PORT || 5002, () => {
+                        console.log('User application started on port', process.env.PORT || 5002);
+                    });
+                } catch (error) {
+                    console.log("got error while starting user application");
+                    throw new Error(`User Application Error: ${error.message}`);
+                }
                 const testRunId = await RunTestSet(testset);
                 let testRunStatus;
 
@@ -108,14 +115,12 @@ describe('Keploy Server Tests', () => {
                 }
                 console.log(`TestResult of [${testset}]: ${result}`);
                 testResult = testResult && result;
-
-                // await new Promise(res => setTimeout(res, 1000));
+                server && server.close();
             } // Updated this line to assert on testResult instead of hardcoded true
         } catch (error) {
-            console.log("dsds");
             throw error; // propagate the error so that Jest can recognize it
         }
-        expect(true).toBeTruthy(); // Updated this line to assert on testResult instead of hardcoded true
+        expect(testResult).toBeTruthy(); // Updated this line to assert on testResult instead of hardcoded true
 
     }, 30000000);
 }, 30000000000);
