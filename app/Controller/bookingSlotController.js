@@ -8,7 +8,8 @@ export default class SlotController extends Controller {
         this.service = new BookingService();
     }
 
-    showSlot(request) {                 //showSlot
+    // showSlot funtion
+    showSlot(request) {                     
         try {
             let { value, error } = Validators.showSlot.validate(request.body);
             if (error) {
@@ -26,7 +27,8 @@ export default class SlotController extends Controller {
         }
     }
 
-    showAvailableTickets(request) {                 //bookSlot
+    //bookSlot function
+    showAvailableTickets(request) {      
         try {
             let { value, error } = Validators.showAvailableTickets.validate(request.body);
             if (error) {
@@ -44,7 +46,8 @@ export default class SlotController extends Controller {
         }
     }
 
-    bookTickets(request) {                 //bookSlot
+    //booTickets function
+    bookTickets(request) {        
         try {
             let { value, error } = Validators.bookTickets.validate(request.body);
             if (error) {
@@ -62,7 +65,8 @@ export default class SlotController extends Controller {
         }
     }
 
-    cancelTickets(request) {                 //cancelticket
+    //cancelticket function
+    cancelTickets(request) {      
         try {
             let { value, error } = Validators.cancelTickets.validate(request.body);
             if (error) {
@@ -80,7 +84,8 @@ export default class SlotController extends Controller {
         }
     }
 
-    showTicket(request) {                 //showTicket
+    // showTicket fucntion
+    showTicket(request) {               
         try {
             let { value, error } = Validators.showTicket.validate(request.body);
             if (error) {
