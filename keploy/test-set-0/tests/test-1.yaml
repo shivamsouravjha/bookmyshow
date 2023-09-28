@@ -7,25 +7,24 @@ spec:
         method: GET
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:5002/getData
+        url: http://localhost:8080/wiki
         header:
             Accept: '*/*'
-            Host: localhost:5002
+            Host: localhost:8080
             User-Agent: curl/7.81.0
         body: ""
         body_type: ""
     resp:
         status_code: 200
         header:
-            Access-Control-Allow-Origin: '*'
             Connection: keep-alive
-            Content-Length: "280"
-            Content-Type: application/json; charset=utf-8
-            Date: Mon, 11 Sep 2023 09:32:54 GMT
-            Etag: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
+            Content-Length: "49"
+            Content-Type: text/html; charset=utf-8
+            Date: Thu, 28 Sep 2023 08:49:22 GMT
+            Etag: W/"31-oYZ0g/dabH0kvKXEU21wWkOH2mM"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '{"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+        body: '{"fact":"Cats dislike citrus scent.","length":26}'
         body_type: ""
         status_message: ""
         proto_major: 0
@@ -34,4 +33,5 @@ spec:
     assertions:
         noise:
             - header.Date
-    created: 1694424775
+            - body.length
+    created: 1695890966
