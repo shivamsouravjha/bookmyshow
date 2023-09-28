@@ -1,0 +1,118 @@
+version: api.keploy.io/v1beta1
+name: report-4
+status: FAILED
+success: 0
+failure: 1
+total: 1
+tests:
+    - kind: Http
+      name: report-4
+      status: FAILED
+      started: 1695893270
+      completed: 1695893270
+      test_case_path: /home/shivamsouravjha.linux/bookmyshow/keploytest-set-0
+      mock_path: ""
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8080/wiki
+        header:
+            Accept: '*/*'
+            Host: localhost:8080
+            User-Agent: curl/7.81.0
+        body: ""
+        body_type: ""
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "49"
+            Content-Type: text/html; charset=utf-8
+            Date: Thu, 28 Sep 2023 08:49:22 GMT
+            Etag: W/"31-oYZ0g/dabH0kvKXEU21wWkOH2mM"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"fact":"Cats dislike citrus scent.","length":26}'
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+      noise:
+        - header.Date
+        - body.length
+      result:
+        status_code:
+            normal: false
+            expected: 200
+            actual: 500
+        headers_result:
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Thu, 28 Sep 2023 08:49:22 GMT
+              actual:
+                key: Date
+                value:
+                    - Thu, 28 Sep 2023 09:27:50 GMT
+            - normal: false
+              expected:
+                key: Etag
+                value:
+                    - W/"31-oYZ0g/dabH0kvKXEU21wWkOH2mM"
+              actual:
+                key: Etag
+                value:
+                    - W/"2d-988RtFlumrKR7lESPluBg+TMLDU"
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+            - normal: false
+              expected:
+                key: Content-Length
+                value:
+                    - "49"
+              actual:
+                key: Content-Length
+                value:
+                    - "45"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+        body_result:
+            - normal: false
+              type: PLAIN
+              expected: '{"fact":"Cats dislike citrus scent.","length":26}'
+              actual: 'Error: unable to verify the first certificate'
+        dep_result: []
+test_set: test-set-0

@@ -23,6 +23,7 @@ app.get('/wiki', (req, res) => {
           res.send(data);
       });
   }).on('error', (err) => {
+    console.log(err)
       res.status(500).send(err.toString());
   });
 });
